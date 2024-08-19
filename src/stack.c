@@ -1,7 +1,6 @@
-#include "../include/stack.h"
+#include "stack.h"
 #include <stddef.h>
 #include <stdlib.h>
-#include <time.h>
 
 stack_t* new_stack() {
   stack_t* nst = (stack_t*) malloc(sizeof(stack_t));

@@ -16,6 +16,13 @@ static inline void zig(node_t* n) {
     node_t *child = n->left;
     child->parent = n->parent;
 
+    if(n->parent != NULL){
+        if(n == n->parent->left)
+            n->parent->left = child;
+        else
+            n->parent->right = child;
+    }
+
     n->left = child->right;
     if(child->right != NULL)
         child->right->parent = n;
@@ -27,6 +34,13 @@ static inline void zig(node_t* n) {
 static void zag(node_t* n) {
     node_t* child = n->right;
     child->parent = n->parent;
+
+    if(n->parent != NULL){
+        if(n == n->parent->left)
+            n->parent->left = child;
+        else
+            n->parent->right = child;
+    }
 
     n->right = child->left;
     if(child->left != NULL)
@@ -57,7 +71,7 @@ static node_t* splay(node_t* n) {
                 zag(n->parent);
             } else {
                 zag(n->parent);
-                zag(n->parent);
+                zig(n->parent);
             }
         }
 

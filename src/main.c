@@ -1,14 +1,24 @@
-#include "stack.h"
+#include "../include/splay.h"
 
 int main() {
     
-    stack_t* stk = new_stack();
+    splay_tree_t * spl = new_splay_tree();
 
-    push_stack(10, stk);
-    push_stack(20, stk);
-    push_stack(30, stk);
-    
-    free_stack(stk);
+    spl_insert(100, spl);
+    spl_insert(200, spl);
+    spl_insert(50, spl);
+    spl_insert(300, spl);
+    spl_insert(150, spl);
+    spl_insert(75, spl);
+
+    spl_delete(150, spl);
+    spl_delete(50, spl);
+    spl_delete(100, spl);
+    spl_delete(300, spl);
+    spl_delete(200, spl);
+    spl_delete(75, spl);
+
+    free_splay_tree(spl);
 
     return 0;
 }
