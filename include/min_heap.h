@@ -1,6 +1,8 @@
 #ifndef _MIN_HEAP_H_
 #define _MIN_HEAP_H_
 
+#include <stdbool.h>
+
 typedef struct {
     int size;
     int capacity;
