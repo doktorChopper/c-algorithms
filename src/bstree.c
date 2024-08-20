@@ -55,30 +55,32 @@ void bstree_add(int val, bstree_t * b) {
 
 bool bstree_delete(int val, bstree_t * b) {
   
-  node_t * del = find(val, b);
+    node_t * del = find(val, b);
 
-  if(del == NULL)
-    return false;
+    if(del == NULL)
+        return false;
 
-  if(!del->left)
-    replace(del, del->right, b);
-  else if(!del->right)
-    replace(del, del->left, b);
-  else {
-    node_t * min = minimum(del->right);
+    if(!del->left)
+        replace(del, del->right, b);
+    else if(!del->right)
+        replace(del, del->left, b);
+    else {
+        node_t * min = minimum(del->right);
 
-    if(min->parent != del) {
-      replace(min, min->right, b);
-      min->right = del->right;
-      min->right->parent = min;
+        if(min->parent != del) {
+            replace(min, min->right, b);
+            min->right = del->right;
+            min->right->parent = min;
+        }
+
+        replace(del, min, b);
+        min->left = del->left;
+        min->left->parent = min;
     }
 
-    replace(del, min, b);
-    min->left = del->left;
-    min->left->parent = min;
-  }
+    free(del);
 
-  return true;
+    return true;
 }
 
 bool bstree_search(int val, bstree_t * b) {

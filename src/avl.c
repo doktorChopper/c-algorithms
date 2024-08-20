@@ -15,6 +15,7 @@ static node_t* balance(node_t*);
 static void free_avl_tree_helper(node_t*);
 static inline int node_height(node_t*);
 static node_t* avl_insert_helper(int, node_t*);
+static void replace(node_t*, node_t*, avl_tree_t*);
 
 static node_t* minimum(node_t* n) {
     while(n->left != NULL) 
@@ -156,15 +157,59 @@ bool avl_search(int val, avl_tree_t * avl) {
     return true;
 }
 
+static void replace(node_t* p, node_t* n, avl_tree_t* avl) {
+    if(p == NULL)
+       avl->root = n; 
+    else if(p == p->parent->right)
+        p->parent->right = n;
+    else if(p == p->parent->left)
+        p->parent->left = n;
+
+    if(n != NULL)
+        n->parent = p->parent;
+}
+
+// TODO do recursive delete realisation
+
 bool avl_delete(int val, avl_tree_t * avl) {
     
     node_t* del = find(val, avl->root);
     if(del == NULL) 
         return false;
 
-    //TODO
+    if(del->left == NULL) {
+        replace(del, del->right, avl); 
+    } else if (del->right == NULL) {
+        replace(del, del->left, avl); 
+    } else {
+        node_t* min = minimum(del->right);
+
+        if(min->parent != del) {
+            replace(min, min->right, avl);
+            min->right = del->right;
+            min->right->parent = min;
+        }
+
+        replace(del, min, avl);
+        min->left = del->left;
+        min->left->parent = min;
+    }
+
+    node_t* tmp = del->parent;
+    while(balance_factor(tmp) == -2 || balance_factor(tmp) == 2) {
+        if(tmp->parent == NULL)
+            avl->root = balance(tmp);
+        else if(tmp == tmp->parent->left)
+            tmp->parent->left = balance(tmp);
+        else
+            tmp->parent->right = balance(tmp);
+        tmp = tmp->parent;
+    }
+
+    free(del);
     return true;
 }
+
 
 static node_t* avl_insert_helper(int val, node_t* n) {
 
