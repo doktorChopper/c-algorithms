@@ -37,21 +37,21 @@ static void sift_up(int val, min_heap_t* mih) {
 
 static void sift_down(int i, min_heap_t* mih) {
 
-    int max_child;
+    int min_child;
 
-    if(left_child_idx(i) < mih->size && mih->array[left_child_idx(i)] > mih->array[i])
-        max_child = left_child_idx(i);
+    if(left_child_idx(i) < mih->size - 1 && mih->array[left_child_idx(i)] < mih->array[i])
+        min_child = left_child_idx(i);
     else
-        max_child = i;
+        min_child = i;
 
-    if(right_child_idx(i) < mih->size && mih->array[right_child_idx(i)] > mih->array[max_child])
-        max_child = right_child_idx(i);
+    if(right_child_idx(i) < mih->size - 1 && mih->array[right_child_idx(i)] < mih->array[min_child])
+        min_child = right_child_idx(i);
 
-    if (max_child != i) {
+    if (min_child != i) {
         int tmp = mih->array[i];
-        mih->array[i] = mih->array[max_child];
-        mih->array[max_child] = tmp;
-        sift_down(max_child, mih);
+        mih->array[i] = mih->array[min_child];
+        mih->array[min_child] = tmp;
+        sift_down(min_child, mih);
     }
 
 }
@@ -61,7 +61,7 @@ min_heap_t* new_min_heap() {
     
     min_heap->size = 0;
     min_heap->capacity = 1;
-    min_heap->array = (int*) malloc(min_heap->capacity * sizeof(int));
+    min_heap->array = (int*) malloc(min_heap->capacity);
 
     return min_heap;
 }
@@ -81,6 +81,9 @@ void min_heap_add(int val, min_heap_t * mih) {
 }
 
 bool min_heap_search(int val, min_heap_t * mih) {
+
+    if(mih->size == 0)
+        return false;
 
     for(int i = 0; i < mih->size - 1; ++i) 
         if(mih->array[i] == val)

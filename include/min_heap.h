@@ -9,6 +9,8 @@ typedef struct {
     int* array;
 } min_heap_t;
 
+//TODO build_min_heap
+
 min_heap_t* new_min_heap();
 void free_min_heap(min_heap_t*);
 
