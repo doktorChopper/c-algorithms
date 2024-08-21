@@ -74,9 +74,10 @@ void free_min_heap(min_heap_t * mih) {
 void min_heap_add(int val, min_heap_t * mih) {
 
     mih->size++;
-    if(mih->size == mih->capacity)
+    if(mih->size == mih->capacity) {
         mih->array = (int*) realloc(mih->array, 2 * mih->capacity);
-    mih->capacity = 2 * mih->capacity;
+        mih->capacity = 2 * mih->capacity;
+    }
     sift_up(val, mih);
 }
 

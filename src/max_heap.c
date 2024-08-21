@@ -79,9 +79,10 @@ void free_max_heap(max_heap_t *mah) {
 void max_heap_insert(int val, max_heap_t * mah) {
 
     mah->size++;
-    if(mah->size == mah->capacity)
+    if(mah->size == mah->capacity) {
         mah->array = (int*) realloc( mah->array, 2 * mah->capacity);
-    mah->capacity = 2 * mah->capacity;
+        mah->capacity = 2 * mah->capacity;
+    }
     mah->array[mah->size - 1] = val;
     sift_up(mah->size - 1, mah);
 }
