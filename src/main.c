@@ -1,34 +1,22 @@
-#include "../include/avl.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-#define SIZE 100
-
-void gen(int* arr, int size) {
-
-    int n = 0;
-    for(int i = 0; i < size; ++i) {
-        n = rand() % 1000;
-        arr[i] = n;
-    }
-
-}
+#include "../include/hash_table.h"
 
 int main() {
-    
-    avl_tree_t* avl = new_avl_tree();
 
-    int arr[SIZE] = {0};
+    int i = 0;
+    i++;
 
-    gen(arr, sizeof(arr) / sizeof(int));
+    struct chpr_hash_tab ht;
 
-    for(int i = 0; i < SIZE; ++i) {
-        avl_insert(arr[i], avl);
-    }
+    new_chpr_hash_table(&ht, 10);
 
-    printf("%lu\n", sizeof(arr) / sizeof(int));
+    insert_chpr_hash_table(&ht, "dsada");
+    insert_chpr_hash_table(&ht, "medusalol");
+    insert_chpr_hash_table(&ht, "kak");
+    insert_chpr_hash_table(&ht, "jfafja");
 
-    free_avl_tree(avl);
+    free_chpr_hash_table(&ht);
 
     return 0;
 }
+

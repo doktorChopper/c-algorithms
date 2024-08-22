@@ -18,5 +18,7 @@ struct chpr_hash_tab {
 
 bool new_chpr_hash_table(struct chpr_hash_tab*, unsigned int);
 bool new_chpr_hash_table_n(struct chpr_hash_tab*,unsigned int, unsigned int);
+void free_chpr_hash_table(struct chpr_hash_tab*);
+void insert_chpr_hash_table(struct chpr_hash_tab*, const char*);
 
 #endif // _CHOPPER_HASHTAB_H_
