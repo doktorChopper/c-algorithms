@@ -1,24 +1,22 @@
-#ifndef _HASH_TABLE_H_
-#define _HASH_TABLE_H_
+#ifndef _CHOPPER_HASHTAB_H_
+#define _CHOPPER_HASHTAB_H_
 
 #include <stdbool.h>
 
+struct chpr_hash_tab_entry {
+    struct chpr_hash_tab_entry* next;
+    const char* string;
+    unsigned long hash;
+};
 
-typedef struct {
-    int *array;
-    int size;
-    int capacity;
-    float coeff_filling;
-} hash_table_t;
+struct chpr_hash_tab {
+    struct chpr_hash_tab_entry** table;
+    unsigned int ent_size;
+    unsigned int size;
+    unsigned int count;
+};
 
-hash_table_t* new_hash_table();
+bool new_chpr_hash_table(struct chpr_hash_tab*, unsigned int);
+bool new_chpr_hash_table_n(struct chpr_hash_tab*,unsigned int, unsigned int);
 
-void free_hash_table(hash_table_t*);
-
-void hash_table_insert(int, hash_table_t*);
-
-bool hash_table_delete(int, hash_table_t*);
-
-bool hash_table_search(int, hash_table_t*);
-
-#endif // _HASH_TABLE_H_
+#endif // _CHOPPER_HASHTAB_H_
