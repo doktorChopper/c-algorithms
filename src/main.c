@@ -3,17 +3,19 @@
 
 int main() {
 
-    int i = 0;
-    i++;
-
     struct chpr_hash_tab ht;
 
-    new_chpr_hash_table(&ht, 10);
+    new_chpr_hash_table(&ht);
 
     insert_chpr_hash_table(&ht, "dsada");
-    insert_chpr_hash_table(&ht, "medusalol");
+    insert_chpr_hash_table(&ht, "medusalolfh");
+    insert_chpr_hash_table(&ht, "dsada");
     insert_chpr_hash_table(&ht, "kak");
-    insert_chpr_hash_table(&ht, "jfafja");
+    insert_chpr_hash_table(&ht, "kak");
+    insert_chpr_hash_table(&ht, "kak");
+    insert_chpr_hash_table(&ht, "dsada");
+
+    delete_chpr_hash_table(&ht, "kak");
 
     free_chpr_hash_table(&ht);
 
